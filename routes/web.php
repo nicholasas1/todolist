@@ -9,6 +9,8 @@ Route::get('/', function () {
     return redirect()->route('projects.index');
 });
 
+Route::get('/tasks/todays', [TaskController::class, 'getTodaysTasks']);
+
 // Route for managing projects
 Route::resource('projects', ProjectController::class);
 

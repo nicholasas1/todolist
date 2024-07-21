@@ -55,6 +55,22 @@
         </nav>
 
         <main class="py-4 container">
+
+            <!-- Toast Container -->
+            <div aria-live="polite" aria-atomic="true"
+                style="position: absolute; top: 20px; right: 20px; z-index: 1050;">
+                <div class="toast" id="taskToast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Task Notification</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body" id="taskToastBody">
+                        <!-- Content will be updated via JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+
             @yield('content')
         </main>
 
@@ -65,7 +81,7 @@
 
     @livewireScripts
     <!-- Scripts -->
-    <script src="{{ 'js/app.js' }}" defer></script>
+
     @yield('scripts')
 
 </body>

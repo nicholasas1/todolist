@@ -27,4 +27,14 @@ class TaskController extends Controller
 
         return redirect()->route('projects.show', $project);
     }
+
+    public function getTodaysTasks()
+    {
+        $today = now()->toDateString();
+        $tasksDueToday = Task::where('due_date', $today)
+            ->where('status', '!=', 'done')
+            ->get();
+
+        return $tasksDueToday;
+    }
 }

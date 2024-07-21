@@ -23,7 +23,7 @@
                     <td>{{ $task->status }}</td>
                     <td>
 
-                        @if ($task->status !== 'doing' && 'done')
+                        @if ($task->status !== 'doing' && $task->status !== 'done')
                             <button type="button" class="btn btn-danger"
                                 wire:click="updateStatus({{ $task->id }}, 'doing')">Do</button>
                         @endif
