@@ -11,9 +11,9 @@
 
         <label for="status">Status</label>
         <select name="status" id="status" required>
-            <option value="pending">Pending</option>
-            <option value="in_progress">In Progress</option>
-            <option value="completed">Completed</option>
+            <option value="todo">Todo</option>
+            <option value="doing">Doing</option>
+            <option value="doe">Done</option>
         </select>
 
         <label for="due_date">Due Date</label>
