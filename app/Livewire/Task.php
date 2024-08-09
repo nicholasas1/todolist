@@ -14,7 +14,9 @@ class Task extends Component
     {
         $tasks = ModelsTask::where('project_id', $this->project->id)
             ->where('name', 'like', '%' . $this->searchTerm . '%')
+            ->orderBy('due_date', 'asc') // Mengurutkan berdasarkan tanggal terdekat
             ->get();
+
 
         return view('livewire.task', [
             'tasks' => $tasks,

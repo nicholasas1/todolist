@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->date('deadline')->nullable();
+            $table->string('status')->default('in-progress');
             $table->unsignedBigInteger('user_id'); // Foreign key to the users table
             $table->timestamps();
 

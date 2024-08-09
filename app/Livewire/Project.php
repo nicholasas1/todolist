@@ -10,6 +10,7 @@ class Project extends Component
 {
     public $searchTerm = '';
     public $selectedUserId = '';
+    public $status = 'in-progress'; 
 
     public function render()
     {
@@ -28,17 +29,33 @@ class Project extends Component
             $projectsQuery->where('projects.user_id', $this->selectedUserId);
         }
 
+        if ($this->status) {
+            $projectsQuery->where('projects.status', $this->status);
+        }
+
         // Join with users table to get user names
         $projects = $projectsQuery
             ->join('users', 'projects.user_id', '=', 'users.id')
             ->select('projects.*', 'users.name as user_name')
+            ->orderBy('deadline', 'asc')
             ->get();
 
         // Add task statistics to each project
         foreach ($projects as $project) {
-            $project->task_count = Task::where('project_id', $project->id)->count();
-            $project->completed_task_count = Task::where('project_id', $project->id)->where('status', 'done')->count();
-            $project->progress = $project->task_count > 0 ? ($project->completed_task_count / $project->task_count) * 100 : 0;
+            $taskCount = Task::where('project_id', $project->id)->count();
+            $completedTaskCount = Task::where('project_id', $project->id)->where('status', 'done')->count();
+            $progress = $taskCount > 0 ? ($completedTaskCount / $taskCount) * 100 : 0;
+
+            // Check if project is completed
+            if ($progress == 100 && $project->status !== 'completed') {
+                $project->status = 'completed';
+                $project->save(); // Only save the status, not the calculated fields
+            }
+
+            // Assign calculated values for display purposes only
+            $project->task_count = $taskCount;
+            $project->completed_task_count = $completedTaskCount;
+            $project->progress = $progress;
         }
 
 

@@ -5,7 +5,7 @@
             <input type="text" wire:model.live="searchTerm" placeholder="Search projects by name..."
                 class="form-control mb-3 mt-3">
         </div>
-        <div class="col-6">
+        <div class="col-3">
             <label for="user_id">Assign To</label>
             <select name="user_id" id="user_id" required class="form-control mb-3 mt-3"
                 wire:model.live="selectedUserId">
@@ -13,6 +13,16 @@
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
+            </select>
+        </div>
+        <div class="col-3">
+            <label for="status">Status</label>
+            <select name="status" id="status" required class="form-control mb-3 mt-3" wire:model.live="status">
+                <option value="in-progress">In Progress</option>
+                <option value="">All</option>
+                <option value="completed">Completed</option>
+
+
             </select>
         </div>
     </div>
