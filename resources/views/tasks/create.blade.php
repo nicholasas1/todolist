@@ -3,6 +3,9 @@
 @section('content')
     <form action="{{ route('projects.tasks.store', $project) }}" method="POST">
         @csrf
+        <h1 style="text-align: center">Add Task</h1>
+
+
         <label for="name">Name</label>
         <input type="text" name="name" id="name" required>
 
@@ -16,8 +19,13 @@
             <option value="doe">Done</option>
         </select>
 
-        <label for="due_date">Due Date</label>
-        <input type="date" name="due_date" id="due_date">
+        @php
+            $today = date('Y-m-d'); // Mengambil tanggal hari ini dalam format Y-m-d
+        @endphp
+
+
+        <label for="due_date">Due Date Max ( {{ $project->deadline }}) </label>
+        <input type="date" name="deadline" id="deadline" min="{{ $today }}" max="{{ $project->deadline }}" required>
 
         <button type="submit">Add Task</button>
     </form>

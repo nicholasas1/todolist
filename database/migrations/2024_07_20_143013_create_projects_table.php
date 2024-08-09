@@ -16,7 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->date('deadline')->nullable();
+            $table->unsignedBigInteger('user_id'); // Foreign key to the users table
             $table->timestamps();
+
+            // Create foreign key relationship
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
