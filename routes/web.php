@@ -27,6 +27,10 @@ Route::middleware(['auth'])->group(function () {
     // Route for managing tasks within a project
     Route::resource('projects.tasks', TaskController::class)->shallow();
 
+    Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+    Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
+
+
     // Route for searching projects
     Route::get('search', [ProjectController::class, 'search'])->name('projects.search');
 });

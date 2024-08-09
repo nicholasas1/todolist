@@ -25,7 +25,14 @@ class Task extends Component
         $task = ModelsTask::find($taskId);
         $task->status = $status;
         $task->save();
+    }
 
-       
+    public function deleteTask($taskId)
+    {
+        $task = ModelsTask::findOrFail($taskId);
+        $task->delete();
+
+        // Refresh the task list
+        $this->render();
     }
 }

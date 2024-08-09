@@ -21,16 +21,12 @@
                     <td>{{ $task->description }}</td>
                     <td>{{ $task->due_date }}</td>
                     <td>{{ $task->status }}</td>
-                    <td>
 
-                        @if ($task->status !== 'doing' && $task->status !== 'done')
-                            <button type="button" class="btn btn-danger"
-                                wire:click="updateStatus({{ $task->id }}, 'doing')">Do</button>
-                        @endif
-                        @if ($task->status === 'doing')
-                            <button type="button" class="btn btn-primary"
-                                wire:click="updateStatus({{ $task->id }}, 'done')">Done</button>
-                        @endif
+                    <td>
+                        <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning">Edit</a>
+                        <button type="button" class="btn btn-danger"
+                            wire:click="deleteTask({{ $task->id }})">Delete</button>
+
                     </td>
                 </tr>
             @endforeach

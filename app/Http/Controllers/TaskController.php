@@ -39,4 +39,34 @@ class TaskController extends Controller
 
         return $tasksDueToday;
     }
+
+    public function edit($id)
+    {
+        $task = Task::findOrFail($id);
+
+        // Mendapatkan proyek terkait dengan tugas ini
+        $project = Project::findOrFail($task->project_id);
+
+        // Mengirimkan data task dan project ke view
+        return view('tasks.edit', compact('task', 'project'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'due_date' => 'nullable|date',
+            'status' => 'required|in:todo,doing,done',
+        ]);
+
+        $task = Task::findOrFail($id);
+        $task->update($request->all());
+
+        // Get the project associated with this task
+        $project = $task->project;
+
+        return redirect()->route('projects.show', ['project' => $project->id])
+            ->with('success', 'Task updated successfully');
+    }
 }
