@@ -26,9 +26,9 @@ class ProjectController extends Controller
             'deadline' => 'nullable|date',
         ]);
 
-        Project::create($request->all());
+        $project = Project::create($request->all());
 
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.tasks.create', ['project' => $project->id]);
     }
 
     public function show($id)

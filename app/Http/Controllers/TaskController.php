@@ -25,7 +25,9 @@ class TaskController extends Controller
 
         $project->tasks()->create($request->all());
 
-        return redirect()->route('projects.show', $project);
+        // Redirect back to the same create task page with a session flag
+        return redirect()->route('projects.show', ['project' => $project->id])
+            ->with('task_added', true);
     }
 
     public function getTodaysTasks()
