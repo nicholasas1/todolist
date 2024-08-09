@@ -45,6 +45,8 @@
                     </td>
                     <td>
                         <a href="{{ route('projects.show', $project) }}" class="btn btn-primary">View</a>
+                        <a href="{{ route('projects.edit', $project) }}" class="btn btn-warning">Edit</a>
+                        <button wire:click="deleteProject({{ $project->id }})" class="btn btn-danger">Delete</button>
                     </td>
                 </tr>
             @endforeach

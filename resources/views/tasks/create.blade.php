@@ -20,12 +20,12 @@
         </select>
 
         @php
-            $today = date('Y-m-d'); // Mengambil tanggal hari ini dalam format Y-m-d
+            $today = date('Y-m-d'); 
         @endphp
 
 
         <label for="due_date">Due Date Max ( {{ $project->deadline }}) </label>
-        <input type="date" name="deadline" id="deadline" min="{{ $today }}" max="{{ $project->deadline }}" required>
+        <input type="date" name="due_date" id="due_date" min="{{ $today }}" max="{{ $project->deadline }}" required>
 
         <button type="submit">Add Task</button>
     </form>

@@ -47,4 +47,13 @@ class Project extends Component
             'users' => $users
         ]);
     }
+
+    public function deleteProject($projectId)
+    {
+        $project = ModelsProject::findOrFail($projectId);
+        $project->delete();
+
+        // Refresh the project list after deletion
+        $this->render();
+    }
 }
