@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -32,6 +34,13 @@ class ProjectController extends Controller
 
         $project = Project::create($request->all());
 
+        $user = User::findOrFail($project->user_id);
+        $userEmail = $user->email;
+
+        Mail::send('emails.project_created', ['project' => $project], function ($message) use ($project, $userEmail) {
+            $message->to($userEmail) // Mengirim email ke user terkait
+                ->subject('New Project Created: ' . $project->name);
+        });
         return redirect()->route('projects.tasks.create', ['project' => $project->id]);
     }
 
